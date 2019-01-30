@@ -13,6 +13,9 @@ const StyledStack = styled.div`
     margin: 5px auto;
     box-shadow: 0 0 20px 5px #ececec;
     padding: 5px;
+    background: rgb(255, 255, 0);
+    position: relative;
+    max-height: 70vh;
 `
 
 const StackTop = styled.div`
@@ -24,12 +27,20 @@ const StackTop = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-
+    max-height: 100%;
+    overflow-y: auto;
     .fa-plus {
         margin-left: auto;
         font-size: 26px;
         color: #222;
     }
+`
+
+const TaskList = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
 `
 
 export default class Stack extends React.Component {
@@ -39,9 +50,11 @@ export default class Stack extends React.Component {
                 <StackTop>
                     <i className="fas fa-plus"></i>
                 </StackTop>
-                {this.props.tasks.map((element, key)=>{
-                    return <Task key={key} task={element} />
-                })}
+                <TaskList>
+                    {this.props.tasks.map((element, key)=>{
+                        return <Task key={key} task={element} />
+                    })}
+                </TaskList>
             </StyledStack>
         );
     }

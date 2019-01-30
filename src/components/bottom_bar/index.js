@@ -10,6 +10,7 @@ const StyledBottomBar = styled.div`
     height: 50px;
     box-shadow: 0 5px 5px 5px #ececec;
     width: 100%;
+    background: #fff;
 `
 
 const GButton = styled.button `

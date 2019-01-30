@@ -9,8 +9,8 @@ import styled from 'styled-components';
 
 
 const StyledStackHome = styled.div`
-    display: flex;
-    justify-content: center;
+    display: block;
+    position: relative;
 `
 
 class StackHome extends React.Component {
@@ -23,14 +23,14 @@ class StackHome extends React.Component {
             slidesToScroll: 1
         }
         return(
-            <React.Fragment>
+            <StyledStackHome>
                 <Slider settings={settings}>
                     {this.props.stacks.list.map((element, key)=>{
                         return <Stack key={key} tasks={element.tasks} /> 
                     })}
                 </Slider>
                 <BottomBar />
-            </React.Fragment>
+            </StyledStackHome>
         );
     }
 }
