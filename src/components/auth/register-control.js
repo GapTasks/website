@@ -11,7 +11,8 @@ class RegisterController extends React.Component {
             name: '',
             email: '',
             username: '',
-            password: ''
+            password: '',
+            error: null
         };
 
         this.onNameChange = this.onNameChange.bind(this);
@@ -41,7 +42,10 @@ class RegisterController extends React.Component {
         event.stopPropagation();
         event.preventDefault();
         AuthControl.register(this.state, (err, res) => {
-            if (err) return console.log(err.message);
+            if (err) {
+                return this.setState({ error: err.message });
+            }
+            this.setState({ error: null });
             this.props.history.push('/home');
         });
     }
@@ -50,6 +54,7 @@ class RegisterController extends React.Component {
         return (
             <AuthView
                 action="register"
+                error={this.state.error}
                 onLoginFormSubmit={this.onLoginFormSubmit}
                 onNameChange={this.onNameChange}
                 onEmailChange={this.onEmailChange}
