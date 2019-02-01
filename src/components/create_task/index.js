@@ -23,8 +23,6 @@ const StyledButton = styled(Button)`
     margin-top: 10px !important;
 `
 
-const Completionist = () => <span>You are good to go!</span>;
-
 export default class CreateTask extends React.Component{
     constructor(){
         super();
@@ -35,12 +33,14 @@ export default class CreateTask extends React.Component{
             days: 0,
             hours: 2,
             minutes: 30,
-            seconds: 40
+            seconds: 40,
+            t:5000,
+            intervalHandle: undefined
         }
     }
 
-    static getDerivedStateFromProps(props, state){
-
+    tick(t){
+        this.setState({t: this.state.t-1000});
     }
 
     onChange(key, value){
@@ -148,7 +148,7 @@ export default class CreateTask extends React.Component{
                         disabled={this.props.active ? true: false}
                     />
 
-                    <TextField
+                    {/* <TextField
                         id="outlined-name"
                         label="Seconds"
                         className={""}
@@ -158,7 +158,7 @@ export default class CreateTask extends React.Component{
                         variant="outlined"
                         type="number"
                         disabled={this.props.active ? true: false}
-                    />
+                    /> */}
                 </TimeBlock>
                 <InputLabel  htmlFor="outlined-mood-simple">
                     Mood
@@ -178,12 +178,21 @@ export default class CreateTask extends React.Component{
                     <MenuItem value={20}>Twenty</MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
                 </Select>
-                <Countdown date={Date.now() + 5000}>
-                    <Completionist />
-                </Countdown>
                 <StyledButton variant="contained" color="primary" className={""}>
                     Create
                 </StyledButton>
+                <StyledButton onClick={()=>{
+                    let intervalHandle = setInterval((t)=>this.tick(t), 1000);
+                    this.setState({intervalId: intervalHandle});
+                }} variant="contained" color="primary" className={""}>
+                    Start
+                </StyledButton>
+                <StyledButton onClick={()=>{
+                    clearInterval(this.state.intervalId);
+                }} variant="contained" color="primary" className={""}>
+                    Stop
+                </StyledButton>
+                <label>{this.state.t}</label>
             </StyledCreateTask>
 
         );

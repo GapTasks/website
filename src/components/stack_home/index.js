@@ -11,19 +11,21 @@ import styled from 'styled-components';
 const StyledStackHome = styled.div`
     display: block;
     position: relative;
+
 `
 
 class StackHome extends React.Component {
     render(){
+        const slidesToShow = Math.floor(window.innerWidth / 300);
         const settings = {
             dots: true,
             infinite: true,
             speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToShow: 5,
+            slidesToScroll: 5
         }
         return(
-            <StyledStackHome>
+            <StyledStackHome className="container">
                 <Slider settings={settings}>
                     {this.props.stacks.list.map((element, key)=>{
                         return <Stack key={key} tasks={element.tasks} /> 
