@@ -7,6 +7,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Countdown from 'react-countdown-now';
+import {moods} from 'globals.js';
 
 const StyledCreateTask  = styled.div`
     display: flex;
@@ -23,6 +24,10 @@ const StyledButton = styled(Button)`
     margin-top: 10px !important;
 `
 
+const StyledMenuItem = styled(MenuItem)`
+    font-size: 24px !important;
+`
+
 export default class CreateTask extends React.Component{
     constructor(){
         super();
@@ -31,16 +36,29 @@ export default class CreateTask extends React.Component{
             years: 0,
             months: 0,
             days: 0,
-            hours: 2,
-            minutes: 30,
-            seconds: 40,
+            hours: 0,
+            minutes: 2,
+            seconds: 30,
             t:5000,
-            intervalHandle: undefined
+            intervalHandle: undefined,
+            isActive: true,
+            mood: "none"
         }
     }
 
-    tick(t){
-        this.setState({t: this.state.t-1000});
+    tick(){
+        let duration = this.state.hours*60*60*1000 + this.state.minutes*60*1000 + this.state.seconds*1000;
+        if(duration===0){
+            clearInterval(this.state.intervalHandle)
+            return;
+        }
+        duration -= 1000;
+        const hours = Math.floor(duration / (1000*60*60));
+        duration -= hours*(1000*60*60);
+        const minutes = Math.floor(duration / (1000*60));
+        duration -= minutes*(1000*60);
+        const seconds = Math.floor(duration / 1000);
+        this.setState({hours, minutes, seconds});
     }
 
     onChange(key, value){
@@ -148,7 +166,7 @@ export default class CreateTask extends React.Component{
                         disabled={this.props.active ? true: false}
                     />
 
-                    {/* <TextField
+                    <TextField
                         id="outlined-name"
                         label="Seconds"
                         className={""}
@@ -158,41 +176,40 @@ export default class CreateTask extends React.Component{
                         variant="outlined"
                         type="number"
                         disabled={this.props.active ? true: false}
-                    /> */}
+                    /> 
                 </TimeBlock>
-                <InputLabel  htmlFor="outlined-mood-simple">
-                    Mood
-                </InputLabel>
                 <Select
-                    value={""}
-                    onChange={()=>{}}
-                    label="Mood"
+                    value={this.state.mood}
+                    onChange={(e)=>{
+                        this.setState({mood: e.target.value})
+                    }}
                     input={
-                        <OutlinedInput labelWidth={50} label="Mood" name="mood" id="outlined-mood-simple" />
+                        <OutlinedInput labelWidth={0} name="age" id="outlined-age-simple" />
                     }
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>👊</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <StyledMenuItem key={-1} value={"none"}>{`Moood...`}</StyledMenuItem>
+                    {moods.map((mood, key)=>{
+                        return <StyledMenuItem key={key} value={mood.emoji}>{`${mood.emoji} ${mood.mood}`}</StyledMenuItem>
+                    })}
                 </Select>
-                <StyledButton variant="contained" color="primary" className={""}>
+                {!this.state.isActive && <StyledButton variant="contained" color="primary" className={""}>
                     Create
-                </StyledButton>
-                <StyledButton onClick={()=>{
-                    let intervalHandle = setInterval((t)=>this.tick(t), 1000);
-                    this.setState({intervalId: intervalHandle});
-                }} variant="contained" color="primary" className={""}>
-                    Start
-                </StyledButton>
-                <StyledButton onClick={()=>{
-                    clearInterval(this.state.intervalId);
-                }} variant="contained" color="primary" className={""}>
-                    Stop
-                </StyledButton>
-                <label>{this.state.t}</label>
+                </StyledButton>}
+                {this.state.isActive && 
+                    <React.Fragment>
+                        <StyledButton onClick={()=>{
+                            let intervalHandle = setInterval(()=>this.tick(), 1000);
+                            this.setState({intervalId: intervalHandle});
+                        }} variant="contained" color="primary" className={""}>
+                            Start
+                        </StyledButton>
+                        <StyledButton onClick={()=>{
+                            clearInterval(this.state.intervalId);
+                        }} variant="contained" color="primary" className={""}>
+                            Stop
+                        </StyledButton>
+                    </React.Fragment>
+                }
             </StyledCreateTask>
 
         );

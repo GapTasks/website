@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import {Provider} from 'react-redux';
@@ -13,8 +14,9 @@ import store from '../store';
 
 const StyledApp = styled.div`
     display: block;
-    top: 10%;
     position: relative;
+    height: 100%;
+    background: 
 `
 
 class App extends React.Component {
@@ -28,10 +30,8 @@ class App extends React.Component {
                         <Route path="/stacks" component={StackHome} />
                         <Route path="/create_task/:stack_id" component={CreateTask} />
                         <Route path="/fetch_task" component={FetchTask} />
-                        {
-                            //<ProtectedRoute path="/home" component={Home} />
-                            //<Redirect to="/home" />
-                        }
+                        {/*<ProtectedRoute path="/home" component={StackHome} />
+                        <Redirect to="/home" />*/}
                     </StyledApp>
                 </Router>
             </Provider>

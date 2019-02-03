@@ -21,13 +21,17 @@ const GButton = styled.button `
     width: ${buttonSize}px;
     border-radius: ${buttonSize/2}px;
     box-shadow: 0 5px 5px 5px #dadada;
+    background: #fff;
+    color: #222;
+    font-size: 30px;
+    cursor: pointer;
 `
 
 export default class BottomBar extends React.Component{
     render(){
         return(
             <StyledBottomBar>
-                <GButton />
+                <GButton>G</GButton>
             </StyledBottomBar>
         )
     }

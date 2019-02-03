@@ -6,6 +6,7 @@ import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import {moods} from 'globals.js';
 
 const StyledCreateTask  = styled.div`
     display: flex;
@@ -21,6 +22,9 @@ const TimeBlock = styled.div`
 const StyledButton = styled(Button)`
     margin-top: 10px !important;
 `
+const StyledMenuItem = styled(MenuItem)`
+    font-size: 24px !important;
+`
 
 export default class FetchTask extends React.Component{
     constructor(){
@@ -32,7 +36,8 @@ export default class FetchTask extends React.Component{
             days: 0,
             hours: 0,
             minutes: 0,
-            seconds: 0
+            seconds: 0,
+            mood: "none"
         }
     }
 
@@ -141,23 +146,19 @@ export default class FetchTask extends React.Component{
                         type="number"
                     />
                 </TimeBlock>
-                <InputLabel  htmlFor="outlined-mood-simple">
-                    Mood
-                </InputLabel>
                 <Select
-                    value={""}
-                    onChange={()=>{}}
-                    label="Mood"
+                    value={this.state.mood}
+                    onChange={(e)=>{
+                        this.setState({mood: e.target.value})
+                    }}
                     input={
-                        <OutlinedInput labelWidth={50} label="Mood" name="mood" id="outlined-mood-simple" />
+                        <OutlinedInput labelWidth={0} name="age" id="outlined-age-simple" />
                     }
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>👊</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <StyledMenuItem key={-1} value={"none"}>{`Moood...`}</StyledMenuItem>
+                    {moods.map((mood, key)=>{
+                        return <StyledMenuItem key={key} value={mood.emoji}>{`${mood.emoji} ${mood.mood}`}</StyledMenuItem>
+                    })}
                 </Select>
                 <StyledButton variant="contained" color="primary" className={""}>
                     Fetch
