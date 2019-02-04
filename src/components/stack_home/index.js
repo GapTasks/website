@@ -35,6 +35,7 @@ const AddStack = styled.div`
 
 class StackHome extends React.Component {
     componentDidMount(){
+        
         this.props.dispatch({type: "GET_STACKS", payload: null});
     }
     render(){
@@ -53,7 +54,7 @@ class StackHome extends React.Component {
                         return <Stack key={key} tasks={element.tasks} /> 
                     })}
                 </Slider>
-                <AddStack><i className="fas fa-plus"></i></AddStack>
+                <AddStack onClick={()=>this.props.history.push("create_task")}><i className="fas fa-plus"></i></AddStack>
                 <BottomBar />
             </StyledStackHome>
         );

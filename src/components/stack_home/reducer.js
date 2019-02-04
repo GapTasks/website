@@ -9,7 +9,12 @@ let newState = {...state};
 switch(action.type){
     case 'default': {
         newState = newState; 
+        break;
     }
+    case 'GOT_STACKS': {
+        break;
+    }
+
 }
 return newState;
 }
