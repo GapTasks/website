@@ -54,7 +54,7 @@ class StackHome extends React.Component {
                         return <Stack key={key} tasks={element.tasks} /> 
                     })}
                 </Slider>
-                <AddStack onClick={()=>this.props.history.push("create_task")}><i className="fas fa-plus"></i></AddStack>
+                <AddStack onClick={()=>this.props.history.push("create_task?isStack=true")}><i className="fas fa-plus"></i></AddStack>
                 <BottomBar />
             </StyledStackHome>
         );
