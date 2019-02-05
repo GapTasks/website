@@ -2,7 +2,7 @@ import api from '../api-gateway';
 
 class AuthController {
     constructor() {
-        this.isAuthenticated = false;
+        this.isAuthenticated = null;
     }
 
     authenticate(username, password, cb) {
@@ -24,6 +24,14 @@ class AuthController {
         api.post('/users', user, (err, res) => {
             if (err) return cb(err);
             this.authenticate(user.username, user.password, cb);
+        });
+    }
+
+    verify(cb) {
+        api.get('/auth', (err, res) => {
+            if(err) return cb(err);
+            this.isAuthenticated = true;
+            cb(null);
         });
     }
 }
