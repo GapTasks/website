@@ -8,6 +8,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Countdown from 'react-countdown-now';
 import {moods} from 'globals.js';
+import {withRouter} from 'react-router-dom';
+import queryString from 'query-string';
+import { connect } from 'react-redux';
 
 const StyledCreateTask  = styled.div`
     display: flex;
@@ -28,7 +31,12 @@ const StyledMenuItem = styled(MenuItem)`
     font-size: 24px !important;
 `
 
-export default class CreateTask extends React.Component{
+const HomeButton = styled(Button)`
+    margin-top: 5px !important;
+    font-size: 24px !important;
+`
+
+class CreateTask extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -37,12 +45,27 @@ export default class CreateTask extends React.Component{
             months: 0,
             days: 0,
             hours: 0,
-            minutes: 2,
-            seconds: 30,
+            minutes: 0,
+            seconds: 0,
             t:5000,
             intervalHandle: undefined,
-            isActive: true,
-            mood: "none"
+            isActive: false,
+            mood: "none",
+            isStack: false,
+            id: undefined
+        }
+    }
+
+    componentDidMount(){
+        let queries = queryString.parse(this.props.location.search);
+        if(queries.isStack){
+            this.setState({isStack: true})
+        }
+        if(queries.stackId){
+            this.setState({id: queries.stackId})
+        }
+        if(queries.isActive){
+            this.setState({isActive: true})
         }
     }
 
@@ -65,31 +88,37 @@ export default class CreateTask extends React.Component{
         let newState = {...this.state}
         switch(key){
             case "name":{
-                newState.name = value
+                newState.name = value;
                 break;
             }
             case "years":{
-                newState.years = value
+                const intValue = parseInt(value);
+                newState.years = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "months":{
-                newState.months = value
+                const intValue = parseInt(value);
+                newState.months = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "days":{
-                newState.days = value
+                const intValue = parseInt(value);
+                newState.days = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "hours":{
-                newState.hours = value
+                const intValue = parseInt(value);
+                newState.hours = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "minutes":{
-                newState.minutes = value
+                const intValue = parseInt(value);
+                newState.minutes = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "seconds":{
-                newState.seconds = value
+                const intValue = parseInt(value);
+                newState.seconds = isNaN(intValue) ? "" : intValue;
                 break;
             }
         }
@@ -192,8 +221,15 @@ export default class CreateTask extends React.Component{
                         return <StyledMenuItem key={key} value={mood.emoji}>{`${mood.emoji} ${mood.mood}`}</StyledMenuItem>
                     })}
                 </Select>
-                {!this.state.isActive && <StyledButton variant="contained" color="primary" className={""}>
+                {(this.state.isStack) && <StyledButton onClick={()=>{
+                    this.props.dispatch({type:"CREATE_TASK_WITH_STACK", payload:this.state})
+                }} variant="contained" color="primary" className={""}>
                     Create
+                </StyledButton>}
+                {(this.state.stackId) && <StyledButton onClick={()=>{
+                    this.props.dispatch({type:"CREATE_TASK_WITH_STACK", payload:this.state})
+                }} variant="contained" color="primary" className={""}>
+                    Edit
                 </StyledButton>}
                 {this.state.isActive && 
                     <React.Fragment>
@@ -210,9 +246,25 @@ export default class CreateTask extends React.Component{
                         </StyledButton>
                     </React.Fragment>
                 }
+                <HomeButton variant="contained" color="primary" onClick={()=>{this.props.history.push("home")}}>
+                    <i className="fas fa-home"></i>
+                </HomeButton>
             </StyledCreateTask>
-
         );
     }
-
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        ...state
+    }
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+      dispatch: dispatch
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CreateTask))

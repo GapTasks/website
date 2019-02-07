@@ -7,6 +7,8 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import {moods} from 'globals.js';
+import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const StyledCreateTask  = styled.div`
     display: flex;
@@ -25,8 +27,12 @@ const StyledButton = styled(Button)`
 const StyledMenuItem = styled(MenuItem)`
     font-size: 24px !important;
 `
+const HomeButton = styled(Button)`
+    margin-top: 5px !important;
+    font-size: 24px !important;
+`
 
-export default class FetchTask extends React.Component{
+class FetchTask extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -45,31 +51,37 @@ export default class FetchTask extends React.Component{
         let newState = {...this.state}
         switch(key){
             case "name":{
-                newState.name = value
+                newState.name = value;
                 break;
             }
             case "years":{
-                newState.years = value
+                const intValue = parseInt(value);
+                newState.years = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "months":{
-                newState.months = value
+                const intValue = parseInt(value);
+                newState.months = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "days":{
-                newState.days = value
+                const intValue = parseInt(value);
+                newState.days = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "hours":{
-                newState.hours = value
+                const intValue = parseInt(value);
+                newState.hours = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "minutes":{
-                newState.minutes = value
+                const intValue = parseInt(value);
+                newState.minutes = isNaN(intValue) ? "" : intValue;
                 break;
             }
             case "seconds":{
-                newState.seconds = value
+                const intValue = parseInt(value);
+                newState.seconds = isNaN(intValue) ? "" : intValue;
                 break;
             }
         }
@@ -160,12 +172,29 @@ export default class FetchTask extends React.Component{
                         return <StyledMenuItem key={key} value={mood.emoji}>{`${mood.emoji} ${mood.mood}`}</StyledMenuItem>
                     })}
                 </Select>
-                <StyledButton variant="contained" color="primary" className={""}>
+                <StyledButton onClick={()=>{this.props.dispatch({type:"FETCH_TASKS", payload: {...this.state, history:this.props.history}})}} variant="contained" color="primary" className={""}>
                     Fetch
                 </StyledButton>
+                <HomeButton variant="contained" color="primary" onClick={()=>{this.props.history.push("home")}}>
+                    <i className="fas fa-home"></i>
+                </HomeButton>
             </StyledCreateTask>
 
         );
     }
-
 }
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        ...state
+    }
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+      dispatch: dispatch
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FetchTask))

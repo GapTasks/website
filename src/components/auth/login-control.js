@@ -1,7 +1,8 @@
 import React from 'react';
 import AuthView from './auth-view';
 import AuthControl from './auth-control';
-import { withRouter, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 class Login extends React.Component {

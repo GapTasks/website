@@ -3,12 +3,13 @@ import createSagaMiddleware from 'redux-saga'
 import stacks from './components/stack_home/reducer';
 import card from './components/card/reducer';
 import task from './components/task/reducer';
-
+import create from './components/create_task/reducer';
+import fetch from './components/fetch_task/reducer';
 import allSagas from './sagas';
 
 
 const reducer = combineReducers({
-    stacks, card, task
+    stacks, card, task, create, fetch
 });
 
 // create the saga middleware

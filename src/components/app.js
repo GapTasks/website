@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import {Provider} from 'react-redux';
 import styled from 'styled-components';
 import Login from './auth/login-control';
@@ -10,6 +10,7 @@ import ProtectedRoute from './auth/protected-route';
 import StackHome from './stack_home';
 import CreateTask from './create_task'
 import FetchTask from './fetch_task'
+import SearchResults from './search_results'
 import store from '../store';
 
 const StyledApp = styled.div`
@@ -25,13 +26,16 @@ class App extends React.Component {
             <Provider store={store}>
                 <Router>
                     <StyledApp>
-                        <Route path="/login" component={Login} />
-                        <Route path="/register" component={Register} />
-                        <Route path="/stacks" component={StackHome} />
-                        <Route path="/create_task(/:stack_id)(\?:isStack)" component={CreateTask} />
-                        <Route path="/fetch_task" component={FetchTask} />
-                        <ProtectedRoute path="/home" component={StackHome} />
-                        <Redirect to="/home" />
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <Route path="/register" component={Register} />
+                            <Route path="/stacks" component={StackHome} />
+                            <Route path="/create_task" component={CreateTask} />
+                            <Route path="/fetch_task" component={FetchTask} />
+                            <Route path="/search_results" component={SearchResults} />
+                            <ProtectedRoute path="/home" component={StackHome} />
+                            <Redirect to="/home" />
+                        </Switch>
                     </StyledApp>
                 </Router>
             </Provider>
