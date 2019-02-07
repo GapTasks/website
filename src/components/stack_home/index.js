@@ -9,6 +9,7 @@ import BottomBar from '../bottom_bar';
 import styled from 'styled-components';
 import {colors} from 'globals.js';
 import {withRouter} from 'react-router-dom';
+import AuthControl from 'components/auth/auth-control';
 
 
 const StyledStackHome = styled.div`
@@ -97,7 +98,10 @@ class StackHome extends React.Component {
                     {stacks}
                 </Slider>
                 <AddStack onClick={()=>{this.props.history.push("/create_task?isStack=true")}}><i className="fas fa-plus"></i></AddStack>
-                <Logout><i className="fas fa-sign-out-alt"></i></Logout>
+                <Logout onClick={()=>{
+                    AuthControl.logout(()=>{});
+                    this.props.history.push("home");
+                }}><i className="fas fa-sign-out-alt"></i></Logout>
                 <Logo>Gaptasks</Logo>
                 <SearchButton onClick={()=>this.props.history.push("fetch_task")}><i className="fas fa-search"></i></SearchButton>
                 {/*<BottomBar />*/}
