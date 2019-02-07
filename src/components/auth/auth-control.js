@@ -34,6 +34,13 @@ class AuthController {
             cb(null);
         });
     }
+
+    logout(cb){
+        // TODO: blacklist the token on the server for added security (requires async call, hence the cb argument)
+        document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        this.isAuthenticated = false;
+        cb();
+    }
 }
 
 const controller = new AuthController();
