@@ -1,11 +1,13 @@
 import { call, put, takeEvery, fork, takeLatest, all } from 'redux-saga/effects'
 import axios from 'axios'
 import {convertObjectToArray} from 'globalFns'
+import gateway from 'components/api-gateway'
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
-const doGetStacks = ()=>axios.get("http://localhost:8585/api/v1/stacks", {withCredentials: true});
-const doCreateTaskWithStack = (payload)=>{axios.post("http://localhost:8585/api/v1/stacks", payload, {withCredentials: true});}
-const doFetchTask = (payload)=>axios.get("http://localhost:8585/api/v1/search_tasks", {withCredentials: true})
+
+const doGetStacks = ()=>axios.get(`${gateway.baseUrl}/stacks`, {withCredentials: true});
+const doCreateTaskWithStack = (payload)=>{axios.post(`${gateway.baseUrl}/stacks`, payload, {withCredentials: true});}
+const doFetchTask = (payload)=>axios.get(`${gateway.baseUrl}/search_tasks`, {withCredentials: true})
 
 export function* getStacks() {
   const data = yield call(doGetStacks);
