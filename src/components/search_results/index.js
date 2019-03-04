@@ -17,9 +17,11 @@ class SearchResults extends React.Component{
         }
     }
     componentDidMount(){
+        debugger
         this.setState({tasks: this.props.location.state.tasks})
     }
     render(){
+        debugger;
         return(
             <StyledSearch>
                 {this.state.tasks.map((element, key)=>{

@@ -10,6 +10,7 @@ export function* fetchTasks(payload){
   const {days, months, years, minutes, seconds, mood, name, hours} = payload.payload;
   const result = yield call(doFetchTask, {days, months, years, minutes, seconds, mood, name, hours});
   const tasks = {...result.data.content};
+  debugger;
   payload.payload.history.push({pathname: "search_results", state:{tasks: convertObjectToArray(tasks)}});
   yield put({type: "FETCHED_TASKS", payload: {tasks: convertObjectToArray(tasks)}});
 
