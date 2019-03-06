@@ -75,6 +75,37 @@ const Logo = styled.div`
     font-size: 42px;
     font-family: 'Satisfy', cursive;
 `
+const UserProfile = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed
+    width: 60px;
+    border-radius: 30px;
+    height: 60px;
+    top : 5px;
+    right: 80px;
+    color: #ff0;
+    font-size: 28px;
+    background: #222;
+    cursor: pointer;
+`
+const Friends = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed
+    width: 60px;
+    border-radius: 30px;
+    height: 60px;
+    top : 5px;
+    right: 150px;
+    color: #ff0;
+    font-size: 28px;
+    background: #222;
+    cursor: pointer;
+
+`
 
 class StackHome extends React.Component {
     componentDidMount(){
@@ -98,6 +129,8 @@ class StackHome extends React.Component {
                     {stacks}
                 </Slider>
                 <AddStack onClick={()=>{this.props.history.push("/create_task?isStack=true")}}><i className="fas fa-plus"></i></AddStack>
+                <UserProfile onClick={()=>this.props.history.push(`user_profile`)} ><i className="fas fa-user"></i></UserProfile>
+                <Friends onClick={()=>this.props.history.push(`friends`)} ><i class="fas fa-users"></i></Friends>
                 <Logout onClick={()=>{
                     AuthControl.logout(()=>{});
                     this.props.history.push("home");

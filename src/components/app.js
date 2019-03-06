@@ -11,6 +11,7 @@ import StackHome from './stack_home';
 import CreateTask from './create_task'
 import FetchTask from './fetch_task'
 import SearchResults from './search_results'
+import Friends from './friends';
 import store from '../store';
 
 const StyledApp = styled.div`
@@ -33,6 +34,7 @@ class App extends React.Component {
                             <Route path="/create_task" component={CreateTask} />
                             <Route path="/fetch_task" component={FetchTask} />
                             <Route path="/search_results" component={SearchResults} />
+                            <Route path="/friends" component={Friends} />
                             <ProtectedRoute path="/home" component={StackHome} />
                             <Redirect to="/home" />
                         </Switch>
