@@ -130,7 +130,7 @@ class StackHome extends React.Component {
                 </Slider>
                 <AddStack onClick={()=>{this.props.history.push("/create_task?isStack=true")}}><i className="fas fa-plus"></i></AddStack>
                 <UserProfile onClick={()=>this.props.history.push(`user_profile`)} ><i className="fas fa-user"></i></UserProfile>
-                <Friends onClick={()=>this.props.history.push(`friends`)} ><i class="fas fa-users"></i></Friends>
+                <Friends onClick={()=>this.props.history.push(`friends`)} ><i className="fas fa-users"></i></Friends>
                 <Logout onClick={()=>{
                     AuthControl.logout(()=>{});
                     this.props.history.push("home");

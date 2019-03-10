@@ -68,3 +68,6 @@ class ApiGateway {
 const gateway = new ApiGateway();
 
 export default gateway;
+export const ex = {
+    baseUrl: "http://localhost:8585/api/v1"
+}

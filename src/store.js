@@ -5,11 +5,12 @@ import card from './components/card/reducer';
 import task from './components/task/reducer';
 import create from './components/create_task/reducer';
 import fetch from './components/fetch_task/reducer';
+import friends from  './components/friends/reducer';
 import allSagas from './sagas';
 
 
 const reducer = combineReducers({
-    stacks, card, task, create, fetch
+    stacks, card, task, create, fetch, friends
 });
 
 // create the saga middleware
