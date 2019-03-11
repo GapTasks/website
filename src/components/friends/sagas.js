@@ -7,7 +7,9 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms))
 const doFetchSuggestions = (payload) => axios.get(`${gateway.baseUrl}/user_suggestions`, {params: {query: payload}, withCredentials: true});
 const doAddFriend = (payload) => axios.post(`${gateway.baseUrl}/add_friend`, payload, {withCredentials:true}); 
 const doGetFriendships = (payload) => axios.get(`${gateway.baseUrl}/friendships`, {params: {query: payload}, withCredentials:true});
-const doAcceptFriend = () => axios.post(`${gateway.baseUrl}/accept_friend`, payload, {withCredentials:true});
+const doAcceptFriend = (payload) => axios.post(`${gateway.baseUrl}/accept_friend`, {friendship: payload}, {withCredentials:true});
+const doDenyFriend = (payload) => axios.post(`${gateway.baseUrl}/deny_friend`, {friendship: payload}, {withCredentials:true});
+
 
 export function* fetchSuggestions(payload){
   const result = yield call(doFetchSuggestions, payload.payload);
@@ -25,6 +27,13 @@ export function* addFriend(payload){
   yield put({type:"REQUESTED_FRIEND", payload: null})
 }
 
+export function* denyFriend(payload){
+  const result = yield call(doDenyFriend, payload.payload);
+  const friendships = {...result.data.content.friendships};
+  const username = result.data.content.username;
+  yield put({type:"FRIEND_DENIED", payload:{friendships, username}})
+}
+
 export function* acceptFriend(payload){
   const result = yield call(doAcceptFriend, payload.payload);
   const status = {...result.data.status};
@@ -37,6 +46,10 @@ export function* getFriendships(payload){
   const username = result.data.content.username;
   yield put({type:"GOT_FRIENDSHIPS", payload:{friendships, username}});
 }
+
+export function* fetchFriendStacks(payload){
+  payload.payload.push(`friend_stack/${payload.payload.friend}`);
+}
     
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
@@ -46,6 +59,8 @@ export default function* rootSaga() {
     yield takeLatest("SHOW_USER", showUser),
     yield takeLatest("ADD_FRIEND", addFriend),
     yield takeLatest("ACCEPT_FRIEND", acceptFriend),
-    yield takeLatest('GET_FRIENDSHIPS', getFriendships)
+    yield takeLatest('GET_FRIENDSHIPS', getFriendships),
+    yield takeLatest('DENY_FRIEND', denyFriend),
+    yield takeLatest('FETCH_FRIENDS_STACKS', fetchFriendStacks),
   ])
 }

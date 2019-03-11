@@ -109,12 +109,13 @@ const Friends = styled.div`
 
 class StackHome extends React.Component {
     componentDidMount(){
-        this.props.dispatch({type: "GET_STACKS", payload: null});
+        const {friend} = this.props.match.params;
+        this.props.dispatch({type: "GET_STACKS", payload: {owner: friend}});
     }
     render(){
         const slidesToShow = Math.floor(window.innerWidth / 300);
         const stacks = this.props.stacks.list.length && this.props.stacks.list.map((element, key)=>{
-            return <Stack key={key} tasks={element.tasks} /> 
+            return <Stack key={key} tasks={element.tasks} addingTask={()=>{this.props.history.push(`create_stacktask/${element.id}`)}}/> 
         })
         const settings = {
             dots: true,

@@ -33,6 +33,21 @@ const StackTop = styled.div`
         margin-left: auto;
         font-size: 26px;
         color: #222;
+        cursor: pointer;
+    }
+
+    .fa-plus:hover{
+        color: #0F0;
+        transition: all 1s ease;
+        transition-property: color;
+    }
+
+    span {
+        display: flex;
+        font-family: sans-serif;
+        align-self: center;
+        font-weight: bold
+        margin-left: auto;
     }
 `
 
@@ -48,7 +63,10 @@ export default class Stack extends React.Component {
         return (
             <StyledStack>
                 <StackTop>
-                    <i className="fas fa-plus"></i>
+                    {(this.props.tasks && this.props.tasks.length) && 
+                        <span>{this.props.tasks[0].name}</span>
+                    }
+                    <i className="fas fa-plus" onClick={()=>{this.props.addingTask()}}></i>
                 </StackTop>
                 <TaskList>
                     {(this.props.tasks && this.props.tasks.length) && this.props.tasks.map((element, key)=>{

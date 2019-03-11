@@ -7,6 +7,13 @@ const StyledTask = styled.div`
     justify-content: center;
     min-height: 50px;
     font-family: sans-serif;
+    padding: 5px;
+`
+
+const Chat = styled.div`
+    display: flex;
+    margin-left: auto;
+    cursor: pointer;
 `
 
 export default class Task extends React.Component{
@@ -14,6 +21,7 @@ export default class Task extends React.Component{
         return(
             <StyledTask>
                 {this.props.task.name ? this.props.task.name: "Untitled"}
+                <Chat><i className="far fa-comments"></i></Chat>
             </StyledTask>
         )
     }

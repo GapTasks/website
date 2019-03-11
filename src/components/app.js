@@ -32,8 +32,10 @@ class App extends React.Component {
                             <Route path="/register" component={Register} />
                             <Route path="/stacks" component={StackHome} />
                             <Route path="/create_task" component={CreateTask} />
+                            <Route path="/create_stacktask/:stackId" component={CreateTask} />
                             <Route path="/fetch_task" component={FetchTask} />
                             <Route path="/search_results" component={SearchResults} />
+                            <Route path="/friend_stack/:friend" component={StackHome} />
                             <Route path="/friends" component={Friends} />
                             <ProtectedRoute path="/home" component={StackHome} />
                             <Redirect to="/home" />

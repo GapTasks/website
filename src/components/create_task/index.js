@@ -231,6 +231,11 @@ class CreateTask extends React.Component{
                 }} variant="contained" color="primary" className={""}>
                     Edit
                 </StyledButton>}
+                {this.props.match.params.stackId && <StyledButton onClick={()=>{
+                    this.props.dispatch({type:"ADD_TASK_TO_STACK", payload:{...this.state, stack: this.props.match.params.stackId}})
+                }} variant="contained" color="primary" className={""}>
+                    Create
+                </StyledButton>}
                 {this.state.isActive && 
                     <React.Fragment>
                         <StyledButton onClick={()=>{
@@ -246,7 +251,7 @@ class CreateTask extends React.Component{
                         </StyledButton>
                     </React.Fragment>
                 }
-                <HomeButton variant="contained" color="primary" onClick={()=>{this.props.history.push("home")}}>
+                <HomeButton variant="contained" color="primary" onClick={()=>{this.props.history.push("/home")}}>
                     <i className="fas fa-home"></i>
                 </HomeButton>
             </StyledCreateTask>
