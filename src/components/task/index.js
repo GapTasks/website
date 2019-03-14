@@ -27,7 +27,7 @@ export default class Task extends React.Component{
             <StyledTask>
                 {this.props.task.name ? this.props.task.name: "Untitled"}
                 {!this.props.isFriend && <Play onClick={
-                    ()=>this.props.play(this.props.task.id)
+                    ()=>this.props.play(this.props.task)
                 }><i className="fas fa-play"></i></Play>}
                 <Chat onClick={()=>this.props.enterChatRoom(this.props.task.id)}><i className="far fa-comments"></i></Chat>
             </StyledTask>

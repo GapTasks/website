@@ -23,9 +23,9 @@ class SearchResults extends React.Component{
         return(
             <StyledSearch>
                 {this.state.tasks.map((element, key)=>{
-                        return <Task key={key} play={
+                        return <Task key={key} data={element} play={
                             //payload.payload.history.push({pathname: "search_results", state:{tasks: convertObjectToArray(tasks)}});
-                            (task) => {this.props.history.push(`/create_task/${task}?isActive=true`)}
+                            (task) => {this.props.history.push(`/create_task/?isActive=true&id=${task.id}`)}
                         } task={element} />
                 })}
             </StyledSearch>

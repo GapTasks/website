@@ -182,7 +182,7 @@ class StackHome extends React.Component {
                 }
                 //payload.payload.history.push({pathname: "search_results", state:{tasks: convertObjectToArray(tasks)}});
   
-                play={(task)=>this.props.history.push(`/create_task?isActive=true&task=${task}`)}
+                play={(task)=>{this.props.history.push(`/create_task/?isActive=true&id=${task.id}`)}}
             /> 
         })
         const settings = {

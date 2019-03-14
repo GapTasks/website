@@ -3,6 +3,7 @@ import fetchSaga from './components/fetch_task/sagas'
 import friendsSaga from './components/friends/sagas'
 import profileSaga from './components/profile/sagas'
 import chatSaga from './components/chatView/sagas'
+import createTask from './components/create_task/sagas'
 import { all, fork } from 'redux-saga/effects'
 
 export default function* allSagas() {
@@ -12,5 +13,6 @@ export default function* allSagas() {
       fork(friendsSaga),
       fork(profileSaga),
       fork(chatSaga),
+      fork(createTask)
     ])
   }

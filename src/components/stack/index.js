@@ -73,7 +73,7 @@ export default class Stack extends React.Component {
                 </StackTop>
                 <TaskList>
                     {(this.props.tasks && this.props.tasks.length) && this.props.tasks.map((element, key)=>{
-                        return <Task key={key} isFriend={this.props.isFriend} task={element} play={(task)=>this.props.play(task)} enterChatRoom={(room)=>this.props.enterChatRoom(room)}/>
+                        return <Task data={element} key={key} isFriend={this.props.isFriend} task={element} play={(task)=>this.props.play(task)} enterChatRoom={(room)=>this.props.enterChatRoom(room)}/>
                     })}
                     {(this.props.tasks && ! this.props.tasks.length) && <Task key={0} task={this.props.tasks} />}
                 </TaskList>

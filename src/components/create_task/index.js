@@ -65,14 +65,26 @@ class CreateTask extends React.Component{
             this.setState({id: queries.stackId})
         }
         if(queries.isActive){
-            const task = queries.task
-            this.props.dispatch({
-                type:"FETCH_TASK",
-                payload: task
-            })
             this.setState({isActive: true})
+            this.props.dispatch({type:"GET_TASK_WITH_ID", payload: queries.id})
+            //stack = this.props.stack.find({});
         }
     }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.createTask.task.id!==prevState.id){
+            let duration = nextProps.createTask.task.time_needed;
+            const hours = Math.floor(duration / (1000*60*60));
+            duration -= hours*(1000*60*60);
+            const minutes = Math.floor(duration / (1000*60));
+            duration -= minutes*(1000*60);
+            const seconds = Math.floor(duration / 1000);
+            return { 
+              ...nextProps.createTask.task, hours, minutes, seconds
+            };
+       }
+       else return null;
+     }
 
     tick(){
         let duration = this.state.hours*60*60*1000 + this.state.minutes*60*1000 + this.state.seconds*1000;
@@ -251,6 +263,7 @@ class CreateTask extends React.Component{
                         </StyledButton>
                         <StyledButton onClick={()=>{
                             clearInterval(this.state.intervalId);
+                            this.props.dispatch({type:"SAVE_TASK_WITH_ID", payload:this.state})
                         }} variant="contained" color="primary" className={""}>
                             Stop
                         </StyledButton>
