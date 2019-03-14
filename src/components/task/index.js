@@ -15,13 +15,21 @@ const Chat = styled.div`
     margin-left: auto;
     cursor: pointer;
 `
+const Play = styled.div`
+    display: flex;
+    margin-left: auto;
+    cursor: pointer;
+`
 
 export default class Task extends React.Component{
     render(){
         return(
             <StyledTask>
                 {this.props.task.name ? this.props.task.name: "Untitled"}
-                <Chat><i className="far fa-comments"></i></Chat>
+                {!this.props.isFriend && <Play onClick={
+                    ()=>this.props.play(this.props.task.id)
+                }><i className="fas fa-play"></i></Play>}
+                <Chat onClick={()=>this.props.enterChatRoom(this.props.task.id)}><i className="far fa-comments"></i></Chat>
             </StyledTask>
         )
     }

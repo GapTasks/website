@@ -65,6 +65,11 @@ class CreateTask extends React.Component{
             this.setState({id: queries.stackId})
         }
         if(queries.isActive){
+            const task = queries.task
+            this.props.dispatch({
+                type:"FETCH_TASK",
+                payload: task
+            })
             this.setState({isActive: true})
         }
     }

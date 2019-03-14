@@ -2,15 +2,16 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import stacks from './components/stack_home/reducer';
 import card from './components/card/reducer';
-import task from './components/task/reducer';
 import create from './components/create_task/reducer';
 import fetch from './components/fetch_task/reducer';
 import friends from  './components/friends/reducer';
+import profile from './components/profile/reducer';
+import chat from './components/chatView/reducer';
 import allSagas from './sagas';
 
 
 const reducer = combineReducers({
-    stacks, card, task, create, fetch, friends
+    stacks, card, create, fetch, friends, profile, chat
 });
 
 // create the saga middleware

@@ -13,6 +13,8 @@ import FetchTask from './fetch_task'
 import SearchResults from './search_results'
 import Friends from './friends';
 import store from '../store';
+import ChatView from './chatView';
+import ProfileView from './profile';
 
 const StyledApp = styled.div`
     display: block;
@@ -37,6 +39,8 @@ class App extends React.Component {
                             <Route path="/search_results" component={SearchResults} />
                             <Route path="/friend_stack/:friend" component={StackHome} />
                             <Route path="/friends" component={Friends} />
+                            <Route path="/chat/:room" component={ChatView} />
+                            <Route path="/profile" component={ProfileView} />
                             <ProtectedRoute path="/home" component={StackHome} />
                             <Redirect to="/home" />
                         </Switch>

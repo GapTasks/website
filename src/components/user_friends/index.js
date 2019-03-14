@@ -39,7 +39,7 @@ const UserFriends = ({friendships, username, acceptFriend, denyFriend, fetchStac
                         </Button>}
                     <Button className="right-action" variant="contained" color="primary" onClick={()=>fetchStacks({
                         type:"FETCH_FRIENDS_STACKS",
-                        payload: {friend: friendship.id}
+                        payload: {friend: friendship.friend1==username ? friendship.friend2:friendship.friend1}
                     })}>
                         See Stacks
                     </Button>

@@ -1,7 +1,7 @@
 import { call, put, takeEvery, fork, takeLatest, all } from 'redux-saga/effects'
 import axios from 'axios'
 import {convertObjectToArray} from 'globalFns'
-import gateway from 'components/api-gateway'
+import {ex as gateway} from 'components/api-gateway'
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 

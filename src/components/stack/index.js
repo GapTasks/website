@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import Task from '../task'
 
 
@@ -16,6 +16,9 @@ const StyledStack = styled.div`
     background: rgb(255, 255, 0);
     position: relative;
     max-height: 70vh;
+    ${props => props.isFriend && css`
+        background: #2ecc71;
+    `}
 `
 
 const StackTop = styled.div`
@@ -61,7 +64,7 @@ const TaskList = styled.div`
 export default class Stack extends React.Component {
     render(){
         return (
-            <StyledStack>
+            <StyledStack isFriend={this.props.isFriend}>
                 <StackTop>
                     {(this.props.tasks && this.props.tasks.length) && 
                         <span>{this.props.tasks[0].name}</span>
@@ -70,7 +73,7 @@ export default class Stack extends React.Component {
                 </StackTop>
                 <TaskList>
                     {(this.props.tasks && this.props.tasks.length) && this.props.tasks.map((element, key)=>{
-                        return <Task key={key} task={element} />
+                        return <Task key={key} isFriend={this.props.isFriend} task={element} play={(task)=>this.props.play(task)} enterChatRoom={(room)=>this.props.enterChatRoom(room)}/>
                     })}
                     {(this.props.tasks && ! this.props.tasks.length) && <Task key={0} task={this.props.tasks} />}
                 </TaskList>
