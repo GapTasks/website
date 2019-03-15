@@ -51,7 +51,7 @@ class Friends extends React.Component {
                 </Button>
                 <UserSearchResults users={suggestions} initiateFriend={(action)=>this.props.dispatch(action)}/>
                 <UserFriends friendships={friendships} username={this.props.friends.username} 
-                acceptFriend={(action)=>this.props.dispatch(action)} 
+                acceptFriend={(action)=>{this.props.dispatch(action); this.props.dispatch({type:"GET_FRIENDSHIPS"})}} 
                 denyFriend={(action)=>this.props.dispatch(action)}
                 fetchStacks={(action)=>{action.payload.push = this.props.history.push.bind(this); this.props.dispatch(action)}}
                 />

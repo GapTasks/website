@@ -25,11 +25,12 @@ export function* addFriend(payload){
   const result = yield call(doAddFriend, payload.payload);
   const status = {...result.data.content};
   yield put({type:"REQUESTED_FRIEND", payload: null})
+  yield put({type:"GET_FRIENDSHIPS"});
 }
 
 export function* denyFriend(payload){
   const result = yield call(doDenyFriend, payload.payload);
-  const friendships = {...result.data.content.friendships};
+  const friendships = result.data.content.friendships;
   const username = result.data.content.username;
   yield put({type:"FRIEND_DENIED", payload:{friendships, username}})
 }
@@ -38,6 +39,7 @@ export function* acceptFriend(payload){
   const result = yield call(doAcceptFriend, payload.payload);
   const status = {...result.data.status};
   yield put({type:"ACCEPTED_FRIENDSHIP"})
+  yield put({type:"GET_FRIENDSHIPS"});
 }
 
 export function* getFriendships(payload){

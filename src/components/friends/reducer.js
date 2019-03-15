@@ -12,6 +12,13 @@ export default function friendsReducer(state={suggestions:[], friendships:[]}, a
         case 'GOT_FRIENDSHIPS': {
             newState.friendships = action.payload.friendships;
             newState.username = action.payload.username;
+            newState.suggestions = [];
+            break;
+        }
+        case 'FRIEND_DENIED': {
+            newState.friendships = action.payload.friendships;
+            newState.username = action.payload.username;
+            break;
         }
     }
     return newState;
