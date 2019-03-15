@@ -34,7 +34,7 @@ class Friends extends React.Component {
                     label="Search"
                     style={{ margin: 8 }}
                     placeholder="username"
-                    helperText="Search for a friend!"
+                    helperText="Search for a friend! (case-sensitive username)"
                     fullWidth
                     margin="normal"
                     InputLabelProps={{
