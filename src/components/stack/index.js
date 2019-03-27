@@ -51,9 +51,10 @@ export default class Stack extends React.Component {
                     <i className="fas fa-plus"></i>
                 </StackTop>
                 <TaskList>
-                    {this.props.tasks && this.props.tasks.map((element, key)=>{
+                    {(this.props.tasks && this.props.tasks.length) && this.props.tasks.map((element, key)=>{
                         return <Task key={key} task={element} />
                     })}
+                    {(this.props.tasks && ! this.props.tasks.length) && <Task key={0} task={this.props.tasks} />}
                 </TaskList>
             </StyledStack>
         );

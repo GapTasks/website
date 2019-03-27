@@ -1,9 +1,10 @@
 import { call, put, takeEvery, fork, takeLatest, all } from 'redux-saga/effects'
 import axios from 'axios'
+import gateway from 'components/api-gateway'
 import {convertObjectToArray} from 'globalFns'
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms))
-const doFetchTask = (payload)=>axios.get("http://localhost:8585/api/v1/search_tasks", {params: payload, withCredentials: true})
+const doFetchTask = (payload)=>axios.get(`${gateway.baseUrl}/search_tasks`, {params: payload, withCredentials: true})
 
 export function* fetchTasks(payload){
   const {days, months, years, minutes, seconds, mood, name, hours} = payload.payload;
